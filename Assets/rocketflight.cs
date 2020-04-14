@@ -17,35 +17,41 @@ public class rocketflight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ProcessInput();
-    }
+        Rotate();
+        Thrust();
+    }   
 
-    private void ProcessInput()
+    private void Rotate()
     {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            rigidbody.AddRelativeForce(Vector3.up);            
-            if (enginesound.isPlaying == false)
-            {
-                enginesound.Play();
-            }
-           
-        }
+        rigidbody.freezeRotation = true;
 
         if (Input.GetKey(KeyCode.A))
         {
             transform.Rotate(Vector3.forward);
-        } 
-        
+        }
+
         else if (Input.GetKey(KeyCode.D))
         {
             transform.Rotate(-Vector3.forward);
+        }
+
+        rigidbody.freezeRotation = false;
+    }
+
+    private void Thrust()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            rigidbody.AddRelativeForce(Vector3.up);
+            if (enginesound.isPlaying == false)
+            {
+                enginesound.Play();
+            }
         }
 
         else if (Input.GetKeyUp(KeyCode.Space))
         {
             enginesound.Stop();
         }
-
     }
 }
