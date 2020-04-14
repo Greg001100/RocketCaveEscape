@@ -7,11 +7,13 @@ public class rocketflight : MonoBehaviour
 {
     Rigidbody rigidbody;
     AudioSource enginesound;
+    [SerializeField] float rcsThrust = 100f;
+    [SerializeField] float mThrust = 100f;
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        enginesound = GetComponent<AudioSource>();      
+        enginesound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -23,16 +25,19 @@ public class rocketflight : MonoBehaviour
 
     private void Rotate()
     {
-        rigidbody.freezeRotation = true;
+        rigidbody.freezeRotation = true;     
+        
+        float rotationPerFrame = rcsThrust * Time.deltaTime;
+        
 
         if (Input.GetKey(KeyCode.A))
-        {
-            transform.Rotate(Vector3.forward);
+        {            
+            transform.Rotate(Vector3.forward * rotationPerFrame);
         }
 
         else if (Input.GetKey(KeyCode.D))
-        {
-            transform.Rotate(-Vector3.forward);
+        {            
+            transform.Rotate(-Vector3.forward * rotationPerFrame);
         }
 
         rigidbody.freezeRotation = false;
@@ -40,9 +45,11 @@ public class rocketflight : MonoBehaviour
 
     private void Thrust()
     {
+        float thrustPerFrame = mThrust * Time.deltaTime;
+
         if (Input.GetKey(KeyCode.Space))
         {
-            rigidbody.AddRelativeForce(Vector3.up);
+            rigidbody.AddRelativeForce(Vector3.up * thrustPerFrame);
             if (enginesound.isPlaying == false)
             {
                 enginesound.Play();
@@ -52,6 +59,20 @@ public class rocketflight : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.Space))
         {
             enginesound.Stop();
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        switch (collision.gameObject.tag)
+        {
+            case "Friendly":
+                print("safe");
+                break;
+
+            default:
+                print("dead");
+                break;
         }
     }
 }
