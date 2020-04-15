@@ -1,26 +1,37 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class rocketflight : MonoBehaviour
 {
     Rigidbody rigidbody;
-    AudioSource enginesound;
+    AudioSource audioSource;
     [SerializeField] float rcsThrust = 100f;
     [SerializeField] float mThrust = 100f;
+    [SerializeField] AudioClip mainEngine;
+    [SerializeField] AudioClip lvlComplete;
+    [SerializeField] AudioClip death;
+    [SerializeField] ParticleSystem explosion;
+    [SerializeField] ParticleSystem jetfire;
+    [SerializeField] ParticleSystem success;
+
+    enum State { alive, dying, transcending }
+    State state = State.alive;
+
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        enginesound = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Rotate();
-        Thrust();
+        if (state == State.alive)
+        {
+            Rotate();
+            Thrust();
+        }
     }   
 
     private void Rotate()
@@ -50,29 +61,55 @@ public class rocketflight : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             rigidbody.AddRelativeForce(Vector3.up * thrustPerFrame);
-            if (enginesound.isPlaying == false)
+            if (audioSource.isPlaying == false)
             {
-                enginesound.Play();
+                audioSource.PlayOneShot(mainEngine);
+                jetfire.Play();
             }
         }
 
         else if (Input.GetKeyUp(KeyCode.Space))
         {
-            enginesound.Stop();
+            audioSource.Stop();
+            jetfire.Stop();
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
+        if (state != State.alive)
+        {
+            return;
+        }
         switch (collision.gameObject.tag)
         {
             case "Friendly":
                 print("safe");
                 break;
 
+            case "Finish":
+                state = State.transcending;
+                success.Play();
+                audioSource.PlayOneShot(lvlComplete);               
+                Invoke("LoadNextLevel", 1f);
+                break;
+
             default:
-                print("dead");
+                state = State.dying;
+                explosion.Play();
+                audioSource.PlayOneShot(death);
+                Invoke("Death", 1f);
                 break;
         }
+    }
+
+    private void Death()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    private void LoadNextLevel()
+    {
+        SceneManager.LoadScene(1);
     }
 }
