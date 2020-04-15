@@ -355,13 +355,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 873835480}
-  m_LocalRotation: {x: -0, y: -0, z: -0.012158402, w: 0.9999261}
-  m_LocalPosition: {x: -2.66, y: 9.36, z: 12.250191}
+  m_LocalRotation: {x: 0.015409044, y: 0.00018736268, z: -0.012156959, w: 0.99980736}
+  m_LocalPosition: {x: -2.66, y: 9.53, z: 12.250191}
   m_LocalScale: {x: 37.990746, y: 0.52457666, z: 4}
   m_Children: []
   m_Father: {fileID: 38226545}
   m_RootOrder: 15
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -1.393}
+  m_LocalEulerAnglesHint: {x: 1.766, y: 0, z: -1.393}
 --- !u!65 &873835482
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -448,12 +448,12 @@ PrefabInstance:
     - target: {fileID: 1009562612461212287, guid: 998a14d80fb3c7a44a272c5feb974261,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 17.06
+      value: 17.62
       objectReference: {fileID: 0}
     - target: {fileID: 1009562612461212287, guid: 998a14d80fb3c7a44a272c5feb974261,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 25
+      value: 26.73
       objectReference: {fileID: 0}
     - target: {fileID: 1009562612461212287, guid: 998a14d80fb3c7a44a272c5feb974261,
         type: 3}
@@ -1418,13 +1418,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2144072942}
-  m_LocalRotation: {x: -0, y: -0, z: -0.0010205827, w: 0.99999946}
+  m_LocalRotation: {x: -0.06018003, y: -0.00006141887, z: -0.0010187345, w: 0.99818707}
   m_LocalPosition: {x: -25.25, y: 2.13, z: 12.250191}
   m_LocalScale: {x: 37.990746, y: 0.62985986, z: 4}
   m_Children: []
   m_Father: {fileID: 38226545}
   m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.117000006}
+  m_LocalEulerAnglesHint: {x: -6.9, y: 0, z: -0.117000006}
 --- !u!65 &2144072944
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1634,6 +1634,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Landing pad
+      objectReference: {fileID: 0}
+    - target: {fileID: 6833491957452367832, guid: 79567cc36871bc541a8f20e17369138a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Finish
       objectReference: {fileID: 0}
     - target: {fileID: 6833491957452367836, guid: 79567cc36871bc541a8f20e17369138a,
         type: 3}
