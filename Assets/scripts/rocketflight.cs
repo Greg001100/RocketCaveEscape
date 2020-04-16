@@ -14,6 +14,8 @@ public class rocketflight : MonoBehaviour
     [SerializeField] ParticleSystem jetfire;
     [SerializeField] ParticleSystem success;
 
+    bool collisionsAreEnabled = true;
+
     enum State { alive, dying, transcending }
     State state = State.alive;
 
@@ -32,7 +34,22 @@ public class rocketflight : MonoBehaviour
             Rotate();
             Thrust();
         }
-    }   
+
+        RespondToDebugKeys();
+
+    }
+
+    private void RespondToDebugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextLevel();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            collisionsAreEnabled = !collisionsAreEnabled;
+        }
+    }
 
     private void Rotate()
     {
@@ -77,7 +94,7 @@ public class rocketflight : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (state != State.alive)
+        if (state != State.alive || !collisionsAreEnabled)
         {
             return;
         }
@@ -94,7 +111,7 @@ public class rocketflight : MonoBehaviour
                 Invoke("LoadNextLevel", 1.5f);
                 break;
 
-            //default: re enable me when done testing
+            default:                
                 state = State.dying;
                 explosion.Play();
                 audioSource.PlayOneShot(death);
