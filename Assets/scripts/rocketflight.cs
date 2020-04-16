@@ -14,7 +14,7 @@ public class rocketflight : MonoBehaviour
     [SerializeField] ParticleSystem jetfire;
     [SerializeField] ParticleSystem success;
 
-    bool collisionsAreEnabled = true;
+    bool collisionsAreEnabled = true;    
 
     enum State { alive, dying, transcending }
     State state = State.alive;
@@ -122,11 +122,19 @@ public class rocketflight : MonoBehaviour
 
     private void Death()
     {
-        SceneManager.LoadScene(0);
+        int currentsceneindex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentsceneindex);
     }
 
     private void LoadNextLevel()
     {
-        SceneManager.LoadScene(1);
+        int currentsceneindex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentsceneindex + 1;
+
+        if (nextSceneIndex == SceneManager.sceneCountInBuildSettings)
+        {
+            nextSceneIndex = 0;
+        }           
+        SceneManager.LoadScene(nextSceneIndex);        
     }
 }
