@@ -91,14 +91,14 @@ public class rocketflight : MonoBehaviour
                 state = State.transcending;
                 success.Play();
                 audioSource.PlayOneShot(lvlComplete);               
-                Invoke("LoadNextLevel", 1f);
+                Invoke("LoadNextLevel", 1.5f);
                 break;
 
             //default: re enable me when done testing
                 state = State.dying;
                 explosion.Play();
                 audioSource.PlayOneShot(death);
-                Invoke("Death", 1f);
+                Invoke("Death", 1.5f);
                 break;
         }
     }
