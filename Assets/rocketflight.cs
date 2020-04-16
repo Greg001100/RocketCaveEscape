@@ -94,7 +94,7 @@ public class rocketflight : MonoBehaviour
                 Invoke("LoadNextLevel", 1f);
                 break;
 
-            default:
+            //default: re enable me when done testing
                 state = State.dying;
                 explosion.Play();
                 audioSource.PlayOneShot(death);
